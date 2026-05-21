@@ -76,7 +76,7 @@ $result = $sms->send([
 $result = $sms->sendBulk([
   'senderID'  => 'SMS', // sender ID from which your sms will be send (required)
   'text'      => 'Hello #first_name#, We send sms to #number#', // content of the message (required)
-  'dateStart' => '2022-09-01', // plan date where message will go
+  'dateStart' => '2026-09-01', // plan date where message will go
   'timeStart' => '11:00', // plan time where message will go
   'timeStop'  => '11:00', // plan time of sending stop
   'phone'     => [
@@ -107,7 +107,7 @@ $result = $sms->getInfo([
     22
   ],
   'limit'       => null, // limit of sms in response
-  'time_period' => '2023-02-12 00:00:00 - 2023-02-12 23:59:59', // time period for check
+  'time_period' => '2026-02-12 00:00:00 - 2026-02-12 23:59:59', // time period for check
   'type_sms'    => 'sms', // type of the message
   'state'       => [ // state or states on SMS which you need to get
     'DELIVERD'
@@ -143,7 +143,7 @@ $result = $group->getAll([
 $result = $group->create([
   'name_group'       => 'bigRest', // Group name
   'time_birth'       => '23:22', // time sending birthday greetings
-  'originator_birth' => 'aadfd', // SenderID for birthday greetings
+  'originator_birth' => 'Birth', // SenderID for birthday greetings
   'text_birth'       => 'Hello #first_name#! Good luck', // text for birthday greetings
   'on_birth'         => false // switch of birthday greetings
 ]); 
@@ -163,7 +163,7 @@ $result = $group->addNumber([
   'numbers' => [ // array of numbers
     {
       'number'     => 12345678901,
-      'name'       => 'Iogan',
+      'name'       => 'Logan',
       'surname'    => 'Bah',
       'patronymic' => 'Sebastian',
       'date_birth' => '1992-12-31',
