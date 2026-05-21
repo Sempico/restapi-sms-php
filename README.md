@@ -36,8 +36,8 @@ $result = $auth->register([
   'name'         => 'Dennis', // name of the responsbale person pf a new account (required)
   'phone'        => '380662185299', // phone pf a new account (required)
   'skype'        => 'desrodman', // email pf a new account (required)
-  'email'        => 'desrodman@gmail.com', // a company name pf a new account
-  'company_name' => 'tralala LTD' // skype pf a new account
+  'email'        => 'some_email@gatum.io', // a company name pf a new account
+  'company_name' => 'SMS LTD' // skype pf a new account
 ]);
 ```
 
@@ -56,10 +56,11 @@ $result = $sms->send([
     'senderID'  => 'SMS', // sender ID from which your sms will be send (required)
     'text'      => 'Hello\\nWorld!', // content of the message (required)
     'type'      => 'sms', // type of message (SMS, HLR, WAPPUSH, FLASHSMS)
-    'beginDate' => '2022-09-01', // plan date where message will go
+    'beginDate' => '2026-09-01', // plan date where message will go
     'beginTime' => '11:00', // plan time where message will go
     'lifetime'  => 86400, // period how long message will live
-    'delivery'  => false // enbale of authomatical back of DLR reports
+    'delivery'  => false, // enable of authomatical back of DLR reports
+    'callback_url' => 'https://yourdomain.com/get-dlr'  // URL for sending DLR reports once it will received by the server
   ],
   [
     'number': [ // list of the phone numbers (required)
