@@ -31,6 +31,10 @@ class SempicoChannel
             return null;
         }
 
+        if (!method_exists($notification, 'toSempico')) {
+            throw new \LogicException(sprintf('%s must have a toSempico($notifiable) method to be sent via "sempico".', $notification::class));
+        }
+
         /** @var SempicoMessage|string $message */
         $message = $notification->toSempico($notifiable);
         if (is_string($message)) {

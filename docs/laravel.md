@@ -2,7 +2,7 @@
 
 # Sempico Solutions SMS in Laravel
 
-Supports Laravel 9, 10, 11 and 12. The service provider and the `Sempico` facade are registered automatically (package auto-discovery).
+Supports Laravel 10, 11, 12 and 13. The service provider and the `Sempico` facade are registered automatically (package auto-discovery).
 
 ## Installation
 

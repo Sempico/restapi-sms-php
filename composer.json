@@ -2,7 +2,18 @@
     "name": "sempico/restapi-sms-php",
     "description": "Official PHP SDK for the Sempico Solutions SMS REST API: SMS, HLR, campaigns, groups, black list, statistics and prices. Laravel and Yii2 integrations included.",
     "type": "library",
-    "keywords": ["sms", "sms-api", "sms-gateway", "hlr", "bulk-sms", "a2p", "rest-api", "sempico", "laravel", "yii2"],
+    "keywords": [
+        "sms",
+        "sms-api",
+        "sms-gateway",
+        "hlr",
+        "bulk-sms",
+        "a2p",
+        "rest-api",
+        "sempico",
+        "laravel",
+        "yii2"
+    ],
     "homepage": "https://sempico.solutions",
     "license": "MIT",
     "authors": [
@@ -21,6 +32,11 @@
         "ext-curl": "*",
         "ext-json": "*"
     },
+    "require-dev": {
+        "phpunit/phpunit": "^10.5 || ^11.0 || ^12.0",
+        "phpstan/phpstan": "^2.1",
+        "orchestra/testbench": "^8.0 || ^9.0 || ^10.0 || ^11.0"
+    },
     "suggest": {
         "laravel/framework": "Service provider, facade and notification channel (auto-discovered)",
         "yiisoft/yii2": "Application component Sempico\\RestApi\\Yii2\\SempicoComponent"
@@ -28,6 +44,11 @@
     "autoload": {
         "psr-4": {
             "Sempico\\RestApi\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Sempico\\RestApi\\Tests\\": "tests/"
         }
     },
     "extra": {
@@ -41,5 +62,13 @@
         }
     },
     "minimum-stability": "stable",
-    "prefer-stable": true
+    "prefer-stable": true,
+    "scripts": {
+        "test": "phpunit",
+        "analyse": "phpstan analyse --memory-limit=1G",
+        "check": [
+            "@analyse",
+            "@test"
+        ]
+    }
 }
