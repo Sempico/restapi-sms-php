@@ -21,21 +21,27 @@ jobs:
       fail-fast: false
       matrix:
         include:
-          - { php: '8.1', laravel: '10', testbench: '^8.0',  stability: prefer-lowest }
-          - { php: '8.1', laravel: '10', testbench: '^8.0',  stability: prefer-stable }
-          - { php: '8.2', laravel: '11', testbench: '^9.0',  stability: prefer-stable }
-          - { php: '8.3', laravel: '12', testbench: '^10.0', stability: prefer-stable }
-          - { php: '8.4', laravel: '13', testbench: '^11.0', stability: prefer-stable }
-          - { php: '8.5', laravel: '13', testbench: '^11.0', stability: prefer-stable }
+          # Laravel 10 and 11 are end-of-life: every release has security advisories,
+          # so Composer refuses to install them unless blocking is disabled (dev-only, CI-only).
+          - { php: '8.1', laravel: '10', testbench: '^8.0',  stability: prefer-lowest, eol: true }
+          - { php: '8.1', laravel: '10', testbench: '^8.0',  stability: prefer-stable, eol: true }
+          - { php: '8.2', laravel: '11', testbench: '^9.0',  stability: prefer-stable, eol: true }
+          - { php: '8.3', laravel: '12', testbench: '^10.0', stability: prefer-stable, eol: false }
+          - { php: '8.4', laravel: '13', testbench: '^11.0', stability: prefer-stable, eol: false }
+          - { php: '8.5', laravel: '13', testbench: '^11.0', stability: prefer-stable, eol: false }
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: shivammathur/setup-php@v2
         with:
           php-version: ${{ matrix.php }}
           extensions: curl, json, mbstring
           coverage: none
+
+      - name: Allow end-of-life Laravel
+        if: matrix.eol
+        run: composer config audit.block-insecure false
 
       - name: Install dependencies
         run: |
@@ -54,7 +60,7 @@ jobs:
         php: ['8.1', '8.5']
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: shivammathur/setup-php@v2
         with:
@@ -78,7 +84,7 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
 
       - uses: shivammathur/setup-php@v2
         with:
