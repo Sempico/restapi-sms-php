@@ -20,7 +20,7 @@ class Additional
      * @param array $config
      * @return mixed
      */
-    public function productPrice(array $config)
+    public function productPrice(array $config = [])
     {
         $route = 'v1/product-price';
 
@@ -32,7 +32,7 @@ class Additional
      * @param array $config
      * @return mixed
      */
-    public function accountPrice(array $config)
+    public function accountPrice(array $config = [])
     {
         $route = 'v1/account-price';
 
@@ -44,7 +44,7 @@ class Additional
      * @param array $config
      * @return mixed
      */
-    public function countryPrice(array $config)
+    public function countryPrice(array $config = [])
     {
         $route = 'v1/country-price';
 
