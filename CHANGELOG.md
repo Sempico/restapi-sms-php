@@ -3,7 +3,7 @@
 ## 1.1.1 — 2026-11-26
 
 ### Fixed
-- Laravel: the `sempico` notification channel is registered with a non-static closure, as `Manager::extend()` binds it to the manager (Laravel 13).
+- Laravel: the `sempico` notification channel is registered with a non-static closure, as Laravel 13 declares `Manager::extend()` to take a bindable closure (found by PHPStan; no runtime failure was observed).
 - Laravel: a notification without a `toSempico()` method now throws a clear `LogicException` instead of a fatal error.
 
 ### Added
