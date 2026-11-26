@@ -1,15 +1,18 @@
 # Changelog
 
-## Unreleased
+## 1.1.1 — 2026-11-26
+
+### Fixed
+- Laravel: the `sempico` notification channel is registered with a non-static closure, as Laravel 13 declares `Manager::extend()` to take a bindable closure (found by PHPStan; no runtime failure was observed).
+- Laravel: a notification without a `toSempico()` method now throws a clear `LogicException` instead of a fatal error.
 
 ### Added
+- `SempicoComponent::setApi()` (Yii2) to replace the client, e.g. with a fake one in tests.
 - PHPUnit tests: HTTP client against a local fake API, all endpoints, v1.0 classes, DLR helper, Laravel (Testbench) and Yii2 integrations.
 - GitHub Actions CI: PHP 8.1–8.5, Laravel 10–13, Yii2, PHPStan level 6.
-- `SempicoComponent::setApi()` (Yii2) to replace the client in tests.
 
 ### Changed
-- Laravel channel throws a clear `LogicException` when a notification has no `toSempico()` method.
-- Laravel notification channel is registered with a non-static closure (`Manager::extend()` binds it).
+- Supported Laravel versions in the docs: 10–13.
 
 ## 1.1.0 — 2026-11-26
 
