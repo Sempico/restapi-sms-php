@@ -1,0 +1,13 @@
+parameters:
+    level: 6
+    paths:
+        - src
+        - tests
+    excludePaths:
+        # yiisoft/yii2 is installed only in the "yii2" CI job
+        - src/Yii2
+        - tests/Yii2
+    treatPhpDocTypesAsCertain: false
+    ignoreErrors:
+        # API payloads are free-form arrays (see the OpenAPI spec), their shapes are documented in the PHPDoc text
+        - identifier: missingType.iterableValue

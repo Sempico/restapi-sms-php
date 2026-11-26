@@ -1,6 +1,17 @@
 # Changelog
 
-## 1.1.0 — unreleased
+## Unreleased
+
+### Added
+- PHPUnit tests: HTTP client against a local fake API, all endpoints, v1.0 classes, DLR helper, Laravel (Testbench) and Yii2 integrations.
+- GitHub Actions CI: PHP 8.1–8.5, Laravel 10–13, Yii2, PHPStan level 6.
+- `SempicoComponent::setApi()` (Yii2) to replace the client in tests.
+
+### Changed
+- Laravel channel throws a clear `LogicException` when a notification has no `toSempico()` method.
+- Laravel notification channel is registered with a non-static closure (`Manager::extend()` binds it).
+
+## 1.1.0 — 2026-11-26
 
 ### Added
 - `Sempico` client: one entry point, returns the `data` of the answer and throws `ApiException`.

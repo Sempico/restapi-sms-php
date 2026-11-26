@@ -25,7 +25,7 @@ use yii\base\InvalidConfigException;
  * Usage: Yii::$app->sempico->sendSms('380501234567', 'Hello!');
  *        Yii::$app->sempico->api->stat([...]);
  *
- * @property-read Sempico $api
+ * @property Sempico $api
  */
 class SempicoComponent extends Component
 {
@@ -51,6 +51,14 @@ class SempicoComponent extends Component
             'connect_timeout' => $this->connectTimeout,
             'verify_ssl'      => $this->verifySsl,
         ]);
+    }
+
+    /**
+     * Replace the client, e.g. with a fake one in tests.
+     */
+    public function setApi(Sempico $api): void
+    {
+        $this->api = $api;
     }
 
     /**

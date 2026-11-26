@@ -41,7 +41,7 @@ class SempicoServiceProvider extends ServiceProvider
         }
 
         Notification::resolved(static function (ChannelManager $service): void {
-            $service->extend('sempico', static fn ($app) => new SempicoChannel(
+            $service->extend('sempico', fn ($app) => new SempicoChannel(
                 $app->make(Sempico::class),
                 (string) $app['config']['sempico.sender_id']
             ));

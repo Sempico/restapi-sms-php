@@ -14,6 +14,7 @@
 <p align="center">
   <a href="https://packagist.org/packages/sempico/restapi-sms-php"><img src="https://img.shields.io/packagist/v/sempico/restapi-sms-php.svg" alt="Latest version"></a>
   <a href="https://packagist.org/packages/sempico/restapi-sms-php"><img src="https://img.shields.io/packagist/dt/sempico/restapi-sms-php.svg" alt="Downloads"></a>
+  <a href="https://github.com/Sempico/restapi-sms-php/actions/workflows/tests.yml"><img src="https://github.com/Sempico/restapi-sms-php/actions/workflows/tests.yml/badge.svg" alt="Tests"></a>
   <img src="https://img.shields.io/badge/php-%3E%3D8.1-777bb4.svg" alt="PHP >= 8.1">
   <img src="https://img.shields.io/badge/Laravel-ready-ff2d20.svg" alt="Laravel">
   <img src="https://img.shields.io/badge/Yii2-ready-40b3d8.svg" alt="Yii2">
@@ -266,7 +267,7 @@ try {
 
 | Framework | What is included | Guide |
 |---|---|---|
-| **Laravel** 9–12 | Auto-discovered service provider, `Sempico` facade, `sempico` notification channel, config | [docs/laravel.md](docs/laravel.md) |
+| **Laravel** 10–13 | Auto-discovered service provider, `Sempico` facade, `sempico` notification channel, config | [docs/laravel.md](docs/laravel.md) |
 | **Yii2** | Application component `Yii::$app->sempico` | [docs/yii2.md](docs/yii2.md) |
 | **Symfony** 6–7 | Service configuration, autowiring, Notifier-style usage | [docs/symfony.md](docs/symfony.md) |
 | **CodeIgniter 4**, **Slim 4**, **WordPress**, plain PHP | Ready-to-copy snippets | [docs/other-frameworks.md](docs/other-frameworks.md) |
@@ -306,6 +307,17 @@ $additional->countryPrice(['MCC' => 310]); $additional->countryByContinent();
 $auth = new Auth();
 $auth->register([...]); // returns a JSON string
 ```
+
+## Development
+
+```bash
+composer install
+composer test      # PHPUnit: unit tests with a local fake API + Laravel integration
+composer analyse   # PHPStan level 6
+```
+
+CI runs the tests on PHP 8.1–8.5 with Laravel 10–13 and Yii2, see [`.github/workflows/tests.yml`](.github/workflows/tests.yml).
+The tests never call the real API.
 
 ## Support
 
