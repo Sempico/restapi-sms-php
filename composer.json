@@ -1,23 +1,45 @@
 {
     "name": "sempico/restapi-sms-php",
-    "description": "Api library to interact with Sempico Solutions REST Api",
+    "description": "Official PHP SDK for the Sempico Solutions SMS REST API: SMS, HLR, campaigns, groups, black list, statistics and prices. Laravel and Yii2 integrations included.",
     "type": "library",
-    "version": "1.0.8",
-    "minimum-stability": "stable",
-    "prefer-stable": true,
+    "keywords": ["sms", "sms-api", "sms-gateway", "hlr", "bulk-sms", "a2p", "rest-api", "sempico", "laravel", "yii2"],
+    "homepage": "https://sempico.solutions",
     "license": "MIT",
-    "require": {
-        "curl/curl": "^2.3"
-    },
     "authors": [
         {
-            "name": "Taras",
-            "email": "support@sempico.solutions"
+            "name": "Sempico Solutions",
+            "email": "support@sempico.solutions",
+            "homepage": "https://sempico.solutions"
         }
     ],
+    "support": {
+        "email": "support@sempico.solutions",
+        "docs": "https://restapi.sempico.solutions/desc/"
+    },
+    "require": {
+        "php": ">=8.1",
+        "ext-curl": "*",
+        "ext-json": "*"
+    },
+    "suggest": {
+        "laravel/framework": "Service provider, facade and notification channel (auto-discovered)",
+        "yiisoft/yii2": "Application component Sempico\\RestApi\\Yii2\\SempicoComponent"
+    },
     "autoload": {
         "psr-4": {
             "Sempico\\RestApi\\": "src/"
         }
-    }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Sempico\\RestApi\\Laravel\\SempicoServiceProvider"
+            ],
+            "aliases": {
+                "Sempico": "Sempico\\RestApi\\Laravel\\Facades\\Sempico"
+            }
+        }
+    },
+    "minimum-stability": "stable",
+    "prefer-stable": true
 }

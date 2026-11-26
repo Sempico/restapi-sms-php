@@ -1,56 +1,45 @@
-<?php 
+<?php
+
+declare(strict_types=1);
 
 namespace Sempico\RestApi;
 
-class Auth 
+class Auth
 {
+    private ApiClient $client;
+
+    public function __construct(?ApiClient $client = null)
+    {
+        $this->client = $client ?? new ApiClient();
+    }
+
     /**
      * Register new customer
-     * @param array $config
-     * @return mixed
+     *
+     * @param array $config login, password, name, phone, email (required); skype, company_name
+     * @return string JSON: {"result": <decoded API answer>, "http_code": int, "error": string}
      */
     public function register(array $config)
     {
-        $route = 'v1/register';
-
-        return $this->curlRequest($route, 'POST', $config);
+        return $this->curlRequest('v1/register', 'POST', $config);
     }
 
     /**
      * Make curl request
      * @param string $url
-     * @param array $data
      * @param string|bool $customMethod
+     * @param array $data
      * @return mixed
      */
     public function curlRequest(string $url, string|bool $customMethod, array $data): mixed
     {
-        $output = [];
-        $ch = curl_init();
+        $output = $this->client->curlRequest($url, $customMethod, $data);
 
-        // Header
-        curl_setopt($ch, CURLOPT_HTTPHEADER, [
-            'Content-Type: application/json'
+        return $this->handleError([
+            'result'    => $output['result'],
+            'http_code' => $output['http_code'],
+            'error'     => $output['request_error'],
         ]);
-
-        // Url
-        curl_setopt($ch, CURLOPT_URL, 'https://restapi.sempico.solutions/' . $url);
-        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYHOST, false);
-        curl_setopt($ch, CURLOPT_SSL_VERIFYPEER, false);
-
-        // Define method and body of request
-        if ($customMethod) {
-            curl_setopt($ch, CURLOPT_POSTFIELDS, json_encode($data));
-            curl_setopt($ch, CURLOPT_CUSTOMREQUEST, $customMethod);
-        } 
-
-        $output['result'] = curl_exec($ch);
-        $output['http_code'] = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-        $output['error'] = curl_error($ch);
-        curl_close($ch);
-        
-        return $this->handleError($output);
     }
 
     /**
@@ -61,9 +50,10 @@ class Auth
     protected function handleError(array $data): mixed
     {
         if (!strlen($data['error'])) {
-            $data['result'] = json_decode($data['result']);
-            if (isset($data['result']->error_code) && strlen($data['result']->error_code)) {
-                $data['error'] = $data['result']->error;
+            $data['result'] = is_string($data['result']) ? json_decode($data['result']) : null;
+            if (isset($data['result']->error_code) && $data['result']->error_code) {
+                $errors = $data['result']->errors ?? $data['result']->error ?? '';
+                $data['error'] = is_string($errors) ? $errors : json_encode($errors);
             }
         }
 

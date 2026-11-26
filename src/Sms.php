@@ -17,6 +17,10 @@ class Sms
 
     /**
      * Send sms
+     *
+     * One message: ['number' => [...], 'senderID' => '...', 'text' => '...', ...].
+     * Several messages: a list of such arrays. Up to 100 phone numbers in one request.
+     *
      * @param array $config
      * @return mixed
      */
@@ -28,16 +32,10 @@ class Sms
     }
 
     /**
-     * Send bulk SMS messages.
+     * Send SMS to the numbers of Groups (campaign).
      *
-     * This method sends bulk SMS messages to the specified recipients.
-     *
-     * @param array $config An associative array containing the following keys:
-     * - `to`: An array of phone numbers or recipient IDs to which the SMS messages will be sent.
-     * - `message`: The text message to be sent.
-     * - `sender`: The sender ID or name for the SMS messages.
-     *
-     * @return mixed The response from the API client after sending the bulk SMS messages.
+     * @param array $config senderID, text, id_group (required); dateStart, timeStart, timeStop, phone, id_group_excluded
+     * @return mixed
      */
     public function sendBulk(array $config)
     {
@@ -66,6 +64,18 @@ class Sms
     public function refactoring(array $config)
     {
         $route = 'v1/replacement';
+
+        return $this->client->curlRequest($route, 'POST', $config);
+    }
+
+    /**
+     * Get a general statistic
+     * @param array $config groups_choose, destination, date_range, type_sms, id_name_delivery
+     * @return mixed
+     */
+    public function stat(array $config = [])
+    {
+        $route = 'v1/stat';
 
         return $this->client->curlRequest($route, 'POST', $config);
     }
